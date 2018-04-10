@@ -1,0 +1,203 @@
+@import "../../base/variables.scss";
+
+.user-holder {
+  width: 100%;
+  position: relative;
+  top: 64px;
+  margin-top: 50px;
+  left: 0px;
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.cancel-image-button {
+  position: absolute;
+  bottom: 0px;
+  right: 2.5%;
+  background-color: rgba(100,100,100,0.5);  
+  width: 45%;
+}
+.change-image-button {
+  position: absolute;
+  bottom: 0px;
+  left: 2.5%;
+  background-color: green;
+  width: 45%;
+}
+.radio-image {
+  width: 80%;
+}
+.radio-scroll {
+  padding: 0px;
+  margin: 0px;
+  overflow-x: scroll;
+  width: 1000px;
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (min-width: 640px) {
+  .radios {
+    overflow: auto;
+    width: 60vw; 
+  }
+  
+  .radio-group {
+    padding: 10px;
+    width: 20vw;
+    height: 30vh;
+    border: 1px solid black;
+  }
+  .user-avatar {
+    width: 60vw;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+  }
+  .user-avatar-info {
+    width: calc(50% - 20px);
+    border: 1px solid $primary-color;
+    padding: 10px;
+  }
+  .user-current-avatar {
+    width: calc(50% - 20px);
+    border: 1px solid $primary-color;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .user-avatar-component {
+    width: 30%;
+    cursor: pointer;
+  }
+  .Modal {
+    position: relative;
+    top: 0;
+    margin-left: calc(35vw / 2);
+    width: 65vw;
+    height: 50vh;
+    z-index: 101;
+  }
+  
+  .Content {
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: 50vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+  }
+  @media screen and (max-height: 600px) {
+    .radio-group {
+      padding: 10px;
+      width: 20vw;
+      height: 40vh;
+      border: 1px solid black;
+    }
+    .user-avatar {
+      width: 60vw;
+      background-color: white;
+      padding: 20px;
+      display: flex;
+      flex-direction: row;
+    }
+    .user-avatar-info {
+      width: calc(50% - 20px);
+      border: 1px solid $primary-color;
+      padding: 10px;
+    }
+    .user-current-avatar {
+      width: calc(50% - 20px);
+      border: 1px solid $primary-color;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+    .user-avatar-component {
+      width: 30%;
+      cursor: pointer;
+    }
+    .Modal {
+      position: relative;
+      top: 5vh;
+      margin-left: calc(35vw / 2);
+      width: 65vw;
+      height: 70vh;
+      z-index: 101;
+    }
+    
+    .Content {
+      padding: 20px;
+      width: calc(100% - 40px);
+      height: 60vh;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
+}
+@media screen and (max-width: 640px) {
+  .radios {
+    overflow: auto;
+    width: 90vw; 
+  }
+  
+  .user-avatar {
+    width: 90vw;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .user-avatar-info {
+    width: calc(100% - 20px);
+    border: 1px solid $primary-color;
+    padding: 10px;
+  }
+  .user-current-avatar {
+    width: calc(100% - 20px);
+    border: 1px solid $primary-color;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .user-avatar-component {
+    width: 30%;
+    cursor: pointer;
+  }
+  .Modal {
+    position: relative;
+    top: 0;
+    margin-left: 2.5vw;
+    width: 95vw;
+    height: 50vh;
+    z-index: 101;
+  }
+  
+  .Content {
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: 50vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+  }
+}
+.Overlay {
+  z-index: 0;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  background: rgba(160,160,220,0.75);
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 100vh;
+  width: 100vw;
+}

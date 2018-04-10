@@ -1,0 +1,52 @@
+@import "../../base/variables.scss";
+
+.login-holder {
+  width: 100%;
+  position: fixed;
+  top: 64px;
+  left: 0px;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 640px) {
+  .login {
+    width: 70vw;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background: $primary-card-bg;
+    border-radius: 10px;
+    box-shadow: 2px 1px 5px 5px gray;
+    margin-top: 4vh;
+  }
+  .login-logo {
+    margin-top: 20px;
+    width: 35%;
+  }
+  
+}
+@media screen and (max-width: 640px) {
+  .login {
+    min-width: 200px;
+    width: 90vw;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background: $primary-card-bg;
+    border-radius: 10px;
+    margin-top: 6vh;
+    box-shadow: 2px 1px 5px 5px gray;
+  }
+  .login-logo {
+    margin-top: 20px;
+    width: 25%;
+  }
+
+}

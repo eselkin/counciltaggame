@@ -1,0 +1,105 @@
+@import "../../base/variables.scss";
+.avatar {
+  display: inline;
+}
+img.avatar-image {
+  vertical-align: middle;
+  height: 3vh;
+}
+.score {
+  font-weight: 900;
+  color: $tertiary-color;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  vertical-align: middle;
+  line-height: 64px;
+  margin-right: 50px;
+}
+.main-menu-holder {
+  height: 64px;
+  background: white;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  box-shadow: 0px 0px 2px 2px gray;
+  z-index: 100;
+}
+.main-menu-holder-center {
+  height: 64px;
+  background: white;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  box-shadow: 0px 0px 2px 2px gray;
+  z-index: 100;
+}
+.menu {
+  display: flex;
+  flex-direction: row;
+}
+.menu-logo {
+  height: 50px;
+  margin-top: 5px;
+  vertical-align: middle;
+  margin-right: 40px;
+}
+.main-menu .user-link {
+  line-height: 60px;
+  vertical-align: middle;
+  display: inline;
+  color: $primary-color;
+  padding: 5px;
+}
+.main-menu .link {
+  line-height: 40px;
+  vertical-align: middle;
+  color: $primary-color;
+  display: inline;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.main-menu .active-link {
+  line-height: 40px;
+  vertical-align: middle;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  background-color: $primary-color;
+  display: inline;
+}
+.active-link img {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(invert='1');
+}
+
+.link:hover img {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(invert='1');
+}
+
+.main-menu .active-user-link {
+  line-height: 60px;
+  vertical-align: middle;
+  display: inline;
+  color: white;
+  background-color: $primary-color;
+  padding: 5px;
+}
+
+.main-menu .link:hover {
+  text-decoration: none;
+  background-color: $primary-bg;
+  color: white;
+}
