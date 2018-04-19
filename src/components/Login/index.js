@@ -104,6 +104,7 @@ class Login extends Component {
         }
       })
       .catch(err => {
+        formProps.setSubmitting(false);
         alert("Error signing in");
       });
   }

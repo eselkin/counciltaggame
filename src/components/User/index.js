@@ -149,11 +149,19 @@ class User extends Component {
       showModal: true,
       modalContent: (
         <form onSubmit={this.changeImage}>
-          <div className="radios"><div className="radio-scroll">{radios}</div></div>
-            <button type="submit" className="change-image-button">Change Image</button>
-            <button type="cancel" className="cancel-image-button" onClick={this.cancelImage}>
-              Cancel
-            </button>
+          <div className="radios">
+            <div className="radio-scroll">{radios}</div>
+          </div>
+          <button type="submit" className="change-image-button">
+            Change Image
+          </button>
+          <button
+            type="cancel"
+            className="cancel-image-button"
+            onClick={this.cancelImage}
+          >
+            Cancel
+          </button>
         </form>
       )
     });
@@ -199,6 +207,9 @@ class User extends Component {
             {"Click on an image to see what other options there are:"}
             {this.getAvatarComponents()}
           </div>
+        </div>
+        <div className="logout">
+          <a href="https://engaged.today/logout">Logout</a>
         </div>
       </div>
     );

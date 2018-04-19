@@ -26,7 +26,6 @@ class MainMenu extends Component {
     // let sets = [[0, 1, 2], [100, 101, 102], [200, 201, 202]];
     let avatars = [];
     for (let i = 0; i < this.props.avatar.length; i += 1) {
-      console.log("Avatar:", this.props.avatar[i]);
       if ([1, 2].includes(this.props.avatar[i])) {
         avatars.push(
           <img
@@ -34,7 +33,7 @@ class MainMenu extends Component {
             src={this.getImage(this.props.avatar[i])}
             className="avatar-image"
             alt="baselayer"
-            styles={{ zIndex: 0 }}
+            styles={{ zIndex: this.props.avatar[i] }}
           />
         );
       } else if ([100, 101, 102].includes(this.props.avatar[i])) {
@@ -55,7 +54,7 @@ class MainMenu extends Component {
       return (
         <div className="main-menu-holder">
           <div className="main-menu">
-            <img src={logo} alt="engage branding" className="menu-logo" />
+            <a href="https://engage-santa-monica.herokuapp.com/"><img src={logo} alt="engage branding" className="menu-logo" /></a>
             {this.props.menu
               .map(link => {
                 return (

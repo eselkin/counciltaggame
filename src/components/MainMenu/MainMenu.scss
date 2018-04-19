@@ -26,7 +26,7 @@ img.avatar-image {
   left: 0px;
   width: 100%;
   box-shadow: 0px 0px 2px 2px gray;
-  z-index: 100;
+  z-index: 10000;
 }
 .main-menu-holder-center {
   height: 64px;
@@ -40,7 +40,7 @@ img.avatar-image {
   left: 0px;
   width: 100%;
   box-shadow: 0px 0px 2px 2px gray;
-  z-index: 100;
+  z-index: 1000;
 }
 .menu {
   display: flex;

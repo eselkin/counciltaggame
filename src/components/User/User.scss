@@ -2,6 +2,7 @@
 
 .user-holder {
   width: 100%;
+  height: 100vh;
   position: relative;
   top: 64px;
   margin-top: 50px;
@@ -185,6 +186,12 @@
     display: flex;
     flex-direction: column;
   }
+}
+.logout a {
+  text-decoration: underline;
+  color: white;
+  font-size: 2rem;
+
 }
 .Overlay {
   z-index: 0;

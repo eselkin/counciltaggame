@@ -10,6 +10,8 @@ import {
 } from "react-accessible-accordion";
 import { withFormik } from "formik";
 import { updateScore } from "../../redux-actions/auth.action.creators";
+import Modal from "react-modal";
+import loading from "../../assets/loading.svg";
 import "./Tagging.scss";
 let HOST_AUTH;
 if (process.env.STAGE === "prod") {
@@ -17,6 +19,35 @@ if (process.env.STAGE === "prod") {
 } else {
   HOST_AUTH = "http://localhost:8082";
 }
+
+const styles = {
+  modalStyle: {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(120, 60, 120, 0.85)",
+      textAlign: "center"
+    },
+    content: {
+      position: "absolute",
+      top: "15vh",
+      left: "5vw",
+      border: "none",
+      background: "rgba(0,0,0,0.9)",
+      width: "80vw",
+      height: "60vh",
+      overflow: "auto",
+      WebkitOverflowScrolling: "touch",
+      borderRadius: "8px",
+      outline: "none",
+      padding: "20px",
+      textAlign: "center"
+    }
+  }
+};
 
 // component function
 const TaggingForm = ({
@@ -255,7 +286,7 @@ const FormikTagForm = withFormik({
     return errors;
   },
   handleSubmit: (values, props) => {
-    props.props.handleSubmit(values, props);
+    props.props.handleSubmit(values, props, 0, 4);
   }
 })(TaggingForm);
 
@@ -325,8 +356,9 @@ class Tagging extends Component {
     }
     return tags;
   }
-  formHandler(evt, formProps) {
+  formHandler(evt, formProps, tries, maxtries) {
     console.log(evt);
+    this.displayPending();
     let tags = this.dictToArray(evt);
     if (this.state._id !== null) {
       superagent
@@ -336,16 +368,53 @@ class Tagging extends Component {
         .send({ ItemId: this.state._id, tags })
         .then(result => {
           console.log("RESULT:", result, formProps);
+          this.hidePending();
           formProps.setSubmitting(false);
           if (result.body.success) {
             this.props.dispatch(updateScore(result.body));
             this.getAgendaItem();
           } else {
-            alert("Something went wrong. Try again later");
+            if (result.body.errorType === 0) {
+              alert(
+                "Could not yet give you points for that, but that may change later."
+              );
+              this.getAgendaItem();
+            } else {
+              alert("Something went wrong. Try again later");
+            }
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          if (tries + 1 < maxtries) {
+            // exponential backoff
+            console.log("Submitting again");
+            let formHandler = this.formHandler.bind(this);
+            setTimeout(function() {
+              formHandler(evt, formProps, tries + 1, maxtries);
+            }, Math.pow(2, tries + 1) * 1000);
+          } else {
+            this.hidePending();
+            formProps.setSubmitting(false);
+            alert(
+              "There was an error submitting the form for this item, maybe try a bit later or contact: eli.j.selkin@gmail.com if you see this multiple times."
+            );
           }
         });
     }
   }
+  hidePending() {
+    this.setState({
+      showPending: false
+    });
+  }
+
+  displayPending() {
+    this.setState({
+      showPending: true
+    });
+  }
+
   componentDidMount() {
     // get agenda
     this.getAgendaItem();
@@ -353,6 +422,25 @@ class Tagging extends Component {
   render() {
     return (
       <div className="tagging-holder">
+        <Modal
+          isOpen={this.state.showPending}
+          style={styles.modalStyle}
+          contentLabel="Modal"
+        >
+          <h2>Please wait...</h2>
+          <div className="loading-holder">
+            <div className="loading-div">
+              <div>
+                <img
+                  src={loading}
+                  className="loading"
+                  alt="loading next item..."
+                />
+                <br />
+              </div>
+            </div>
+          </div>
+        </Modal>
         <h2>Help us tag this item:</h2>
         <Accordion>
           <AccordionItem>
@@ -362,7 +450,17 @@ class Tagging extends Component {
                 <div className="accordion__arrow" role="presentation" />
               </h3>
             </AccordionItemTitle>
-            <AccordionItemBody>{this.state.recommendations}</AccordionItemBody>
+            {this.state.recommendations && (
+              <AccordionItemBody>
+                {this.state.recommendations}
+              </AccordionItemBody>
+            )}
+            {!this.state.recommendations && (
+              <AccordionItemBody>
+                Sorry, this item has no recommendations section, try to select
+                based on the title.
+              </AccordionItemBody>
+            )}
             <div className="block">
               Check all that apply:<br />
               {this.state.formikform}

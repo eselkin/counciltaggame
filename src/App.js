@@ -7,7 +7,8 @@ import Signup from "./components/Signup";
 import Tagging from "./components/Tagging";
 import User from "./components/User";
 import MainMenu from "./components/MainMenu";
-
+import Leaderboard from "./components/Leaderboard";
+import Footer from "./components/Footer";
 import "./App.scss";
 const Tough = require("tough-cookie");
 const Store = new Tough.MemoryCookieStore();
@@ -27,6 +28,7 @@ class App extends Component {
       height: window.innerHeight,
       menuOpen: false,
       menuLinks: [
+        { to: "/", contents: "Leaderboard", click: this.hideMenu },
         { to: "/login", contents: "Login", click: this.hideMenu },
         { to: "/signup", contents: "Signup", click: this.hideMenu }
       ]
@@ -44,11 +46,6 @@ class App extends Component {
   }
   componentWillMount() {
     window.addEventListener("resize", this.resizeWindow);
-    if (window.location.pathname === "/" && !this.props.logged_in) {
-      window.location = "login";
-    } else if (window.location.pathname === "/") {
-      window.location = "tag";
-    }
     this.resizeWindow();
   }
   componentWillUnmount() {
@@ -58,6 +55,7 @@ class App extends Component {
     if (nextProps.logged_in) {
       this.setState({
         menuLinks: [
+          { to: "/", contents: "Leaderboard", click: this.hideMenu },
           { to: "/user", contents: nextProps.username, click: this.hideMenu },
           { to: "/tag", contents: "Tag Agendas", click: this.hideMenu }
         ]
@@ -65,15 +63,12 @@ class App extends Component {
     } else {
       this.setState({
         menuLinks: [
+          { to: "/", contents: "Leaderboard", click: this.hideMenu },
           { to: "/login", contents: "Login", click: this.hideMenu },
           { to: "/signup", contents: "Signup", click: this.hideMenu }
         ]
       });
     }
-  }
-  createAvatar() {
-    // let avatarComponents = this.props.avatar;
-    return <div className="avatar" />;
   }
   render() {
     return (
@@ -104,6 +99,7 @@ class App extends Component {
                     <Link
                       key={link.to}
                       to={link.to}
+                      onClick={link.click}
                       className={
                         window.location.pathname === link.to
                           ? "active-link"
@@ -122,18 +118,31 @@ class App extends Component {
               <Switch>
                 <Route
                   exact
+                  path="/"
+                  render={props => <Leaderboard props={props} />}
+                />
+                <Route
+                  exact
                   path="/login"
-                  render={props => <Login props={props} agent={fetch} />}
+                  render={props => <Login props={props} />}
                 />
                 <Route
                   exact
                   path="/signup"
-                  render={props => <Signup props={props} agent={fetch} />}
+                  render={props => <Signup props={props} />}
                 />
               </Switch>
             )}
             {this.props.logged_in && (
               <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={props => (
+                    <Leaderboard username={this.props.username} />
+                  )}
+                />
+
                 <Route
                   exact
                   path="/tag"
@@ -142,11 +151,20 @@ class App extends Component {
                 <Route
                   exact
                   path="/user"
-                  render={props => <User username={this.props.username} score={this.props.score} avatar={this.props.avatar} token={this.props.token} dispatch={this.props.dispatch}/>}
+                  render={props => (
+                    <User
+                      username={this.props.username}
+                      score={this.props.score}
+                      avatar={this.props.avatar}
+                      token={this.props.token}
+                      dispatch={this.props.dispatch}
+                    />
+                  )}
                 />
               </Switch>
             )}
           </main>
+          <Footer />
         </div>
       </BrowserRouter>
     );
