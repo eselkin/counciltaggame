@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import levels from "./levels";
 import a1 from "../../assets/fedora.svg";
 import a2 from "../../assets/baseball.svg";
+import a3 from "../../assets/beret.svg";
+import a4 from "../../assets/cloche.svg";
 import Modal from "react-modal";
 import superagent from "superagent";
 import { updateScore } from "../../redux-actions/auth.action.creators";
@@ -41,6 +43,10 @@ class User extends Component {
         return a1;
       case 2:
         return a2;
+      case 3:
+        return a3;
+      case 4:
+        return a4;
       default:
         return a1;
     }
@@ -54,7 +60,7 @@ class User extends Component {
   }
 
   changeComponent(event, segment) {
-    let available_components = [[1, 2], [100, 101, 102]];
+    let available_components = [[1, 2, 3, 4], [100, 101, 102]];
     let similar_components = this.findSegmentSection(
       available_components,
       segment

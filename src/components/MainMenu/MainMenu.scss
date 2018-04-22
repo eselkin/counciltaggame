@@ -78,9 +78,6 @@ img.avatar-image {
   display: inline;
 }
 .active-link img {
-  -webkit-filter: invert(1);
-  filter: invert(1);
-  filter: progid:DXImageTransform.Microsoft.BasicImage(invert='1');
 }
 
 .link:hover img {

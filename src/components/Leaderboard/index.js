@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import superagent from "superagent";
 import a1 from "../../assets/fedora.svg";
 import a2 from "../../assets/baseball.svg";
+import a3 from "../../assets/beret.svg";
+import a4 from "../../assets/cloche.svg";
+
 import "./Leaderboard.scss";
 let HOST_AUTH;
 if (process.env.STAGE === "prod") {
@@ -30,7 +33,7 @@ class Leaderboard extends Component {
       if (!this.props.username || this.props.username !== user.username) {
         results.push(
           <div className="leader-user" key={user.username}>
-            <div className="leader-place"> {i+"."} </div>
+            <div className="leader-place"> {i + "."} </div>
             {avatarImageDiv}
             <div className="leader-name">{user.username}</div>
             <div className="leader-score">{user.score}</div>
@@ -39,7 +42,7 @@ class Leaderboard extends Component {
       } else {
         results.push(
           <div className="leader-user-you" key={user.username}>
-            <div className="leader-place"> {i+"."} </div>
+            <div className="leader-place"> {i + "."} </div>
             {avatarImageDiv}
             <div className="leader-name">{user.username}</div>
             <div className="leader-score">{user.score}</div>
@@ -71,6 +74,10 @@ class Leaderboard extends Component {
         return a1;
       case 2:
         return a2;
+      case 3:
+        return a3;
+      case 4:
+        return a4;
       default:
         return a1;
     }
@@ -79,7 +86,7 @@ class Leaderboard extends Component {
     // let sets = [[0, 1, 2], [100, 101, 102], [200, 201, 202]];
     let avatars = [];
     for (let i = 0; i < avatarlist; i += 1) {
-      if ([1, 2].includes(avatarlist[i])) {
+      if ([1, 2, 3, 4].includes(avatarlist[i])) {
         avatars.push(
           <img
             key="base0"

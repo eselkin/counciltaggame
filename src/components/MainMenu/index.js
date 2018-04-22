@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import a1 from "../../assets/fedora.svg";
+import a1i from "../../assets/fedora-i.svg";
 import a2 from "../../assets/baseball.svg";
+import a2i from "../../assets/baseball-i.svg";
+import a3 from "../../assets/beret.svg";
+import a3i from "../../assets/beret-i.svg";
+import a4 from "../../assets/cloche.svg";
+import a4i from "../../assets/cloche-i.svg";
 import "./MainMenu.scss";
 
 class MainMenu extends Component {
@@ -11,26 +17,50 @@ class MainMenu extends Component {
     this.getImage = this.getImage.bind(this);
     this.getAvatar = this.getAvatar.bind(this);
   }
-  getImage(id) {
+  getImage(id, active) {
     switch (id) {
       case 1:
-        return a1;
+        if (active) {
+          return a1i;
+        } else {
+          return a1;
+        }
       case 2:
-        return a2;
+        if (active) {
+          return a2i;
+        } else {
+          return a2;
+        }
+      case 3:
+        if (active) {
+          return a3i;
+        } else {
+          return a3;
+        }
+      case 4:
+        if (active) {
+          return a4i;
+        } else {
+          return a4;
+        }
       default:
-        return a1;
+        if (active) {
+          return a1i;
+        } else {
+          return a1;
+        }
     }
   }
-  getAvatar() {
+  getAvatar(active) {
     console.log(this.props);
-    // let sets = [[0, 1, 2], [100, 101, 102], [200, 201, 202]];
+    // let sets = [[1, 2, 3, 4], [100, 101, 102], [200, 201, 202]];
     let avatars = [];
     for (let i = 0; i < this.props.avatar.length; i += 1) {
-      if ([1, 2].includes(this.props.avatar[i])) {
+      if ([1, 2, 3, 4].includes(this.props.avatar[i])) {
         avatars.push(
           <img
             key="base0"
-            src={this.getImage(this.props.avatar[i])}
+            src={this.getImage(this.props.avatar[i], active)}
             className="avatar-image"
             alt="baselayer"
             styles={{ zIndex: this.props.avatar[i] }}
@@ -54,7 +84,9 @@ class MainMenu extends Component {
       return (
         <div className="main-menu-holder">
           <div className="main-menu">
-            <a href="https://engage-santa-monica.herokuapp.com/"><img src={logo} alt="engage branding" className="menu-logo" /></a>
+            <a href="https://engage-santa-monica.herokuapp.com/">
+              <img src={logo} alt="engage branding" className="menu-logo" />
+            </a>
             {this.props.menu
               .map(link => {
                 return (
@@ -67,7 +99,12 @@ class MainMenu extends Component {
                         : "link"
                     }
                   >
-                    {link.to === "/user" && this.getAvatar()}
+                    {link.to === "/user" &&
+                      this.props.history.location.pathname === "/user" &&
+                      this.getAvatar(true)}
+                    {link.to === "/user" &&
+                      this.props.history.location.pathname !== "/user" &&
+                      this.getAvatar(false)}
                     {link.to !== "/user" && link.contents}
                   </Link>
                 );
