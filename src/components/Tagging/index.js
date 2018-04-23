@@ -300,6 +300,7 @@ class Tagging extends Component {
       _id: null
     };
     this.formHandler = this.formHandler.bind(this);
+    this.shouldExpand = this.shouldExpand.bind(this);
   }
   dictToArray(dict) {
     let tags = [];
@@ -419,6 +420,11 @@ class Tagging extends Component {
     // get agenda
     this.getAgendaItem();
   }
+  
+  shouldExpand(recommendations) {
+    return !recommendations || recommendations.length < 500;
+  }
+
   render() {
     return (
       <div className="tagging-holder">
@@ -443,7 +449,9 @@ class Tagging extends Component {
         </Modal>
         <h2>Help us tag this item:</h2>
         <Accordion>
-          <AccordionItem>
+          <AccordionItem
+            expanded={this.shouldExpand(this.state.recommendations)}
+          >
             <AccordionItemTitle className="accordion__title accordion__title--animated">
               <h3 className="u-position-relative">
                 {this.state.title}

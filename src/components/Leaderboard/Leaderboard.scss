@@ -52,10 +52,12 @@
     height: 10vh;
     width: 20vw;
     vertical-align: center;
+    position: relative;
   }
   .leader-avatar-image {
     height: 70%;
     padding: 10px;
+    position: absolute;
     vertical-align: middle;
   }
 }

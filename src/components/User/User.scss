@@ -62,16 +62,27 @@
     border: 1px solid $primary-color;
     padding: 10px;
   }
-  .user-current-avatar {
+  .user-current-avatar-holder {
     width: calc(50% - 20px);
     border: 1px solid $primary-color;
     padding: 10px;
     display: flex;
     flex-direction: column;
   }
+  .user-current-avatar {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+  }
   .user-avatar-component {
     width: 30%;
     cursor: pointer;
+    background: $primary-bg;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0px;
   }
   .Modal {
     position: relative;

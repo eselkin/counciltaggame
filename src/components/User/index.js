@@ -2,10 +2,19 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import levels from "./levels";
+import blank from "../../assets/blank.svg";
 import a1 from "../../assets/fedora.svg";
+import a1i from "../../assets/fedora-i.svg";
 import a2 from "../../assets/baseball.svg";
+import a2i from "../../assets/baseball-i.svg";
 import a3 from "../../assets/beret.svg";
+import a3i from "../../assets/beret-i.svg";
 import a4 from "../../assets/cloche.svg";
+import a4i from "../../assets/cloche-i.svg";
+import b1 from "../../assets/flower1.svg";
+import b2 from "../../assets/la.svg";
+import b3 from "../../assets/law.svg";
+import b4 from "../../assets/labow.svg";
 import Modal from "react-modal";
 import superagent from "superagent";
 import { updateScore } from "../../redux-actions/auth.action.creators";
@@ -37,20 +46,45 @@ class User extends Component {
     this.changeImage = this.changeImage.bind(this);
   }
 
-  getImage(segment) {
-    switch (segment) {
+  getImage(id, active) {
+    switch (id) {
       case 1:
-        return a1;
+        if (active) {
+          return a1i;
+        } else {
+          return a1;
+        }
       case 2:
-        return a2;
+        if (active) {
+          return a2i;
+        } else {
+          return a2;
+        }
       case 3:
-        return a3;
+        if (active) {
+          return a3i;
+        } else {
+          return a3;
+        }
       case 4:
-        return a4;
+        if (active) {
+          return a4i;
+        } else {
+          return a4;
+        }
+      case 101:
+        return b1;
+      case 102:
+        return b2;
+      case 103:
+        return b3;
+      case 104:
+        return b4;
       default:
-        return a1;
+        return blank;
     }
   }
+
   findSegmentSection(components, segment) {
     for (let section of components) {
       if (section.includes(segment)) {
@@ -60,14 +94,14 @@ class User extends Component {
   }
 
   changeComponent(event, segment) {
-    let available_components = [[1, 2, 3, 4], [100, 101, 102]];
+    let available_components = [[0, 1, 2, 3, 4], [100, 101, 102, 103, 104]];
     let similar_components = this.findSegmentSection(
       available_components,
       segment
     );
     this.setState({ currentOption: segment });
     let images = similar_components.map(image => {
-      return { id: image, image: this.getImage(image) };
+      return { id: image, image: this.getImage(image, false) };
     });
     this.displayModalImages(images);
   }
@@ -181,7 +215,7 @@ class User extends Component {
             onClick={evt => {
               this.changeComponent(evt, segment);
             }}
-            src={this.getImage(segment)}
+            src={this.getImage(segment, false)}
             alt="hat"
             key={segment}
             className="user-avatar-component"
@@ -209,9 +243,11 @@ class User extends Component {
             {levels[this.props.avatar.length + 1] - this.props.score} more
             points.
           </div>
-          <div className="user-current-avatar">
+          <div className="user-current-avatar-holder">
             {"Click on an image to see what other options there are:"}
-            {this.getAvatarComponents()}
+            <div className="user-current-avatar">
+              {this.getAvatarComponents()}
+            </div>
           </div>
         </div>
         <div className="logout">
